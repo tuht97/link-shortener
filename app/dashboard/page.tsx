@@ -1,9 +1,14 @@
 "use client";
 
 import { useAddEditLinkModal } from "@/components/AddLinkModal";
+import { list } from "../actions";
 
-function DashboardPage() {
+async function DashboardPage() {
+
   const { AddEditLinkModal, AddEditLinkButton } = useAddEditLinkModal();
+
+  const links = await list("clqq94ikj000010zsvs35pzwm");
+
   return (
     <div>
       <AddEditLinkModal />
@@ -12,6 +17,9 @@ function DashboardPage() {
           <div className="flex items-center justify-between">
             <h1 className="text-2xl text-gray-600">My Links</h1>
             <AddEditLinkButton />
+            {links.data.map((link, idx) => (
+              <div key={idx}>{link.clicks}</div>
+            ))}
           </div>
         </div>
       </div>
