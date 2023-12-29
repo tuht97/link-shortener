@@ -6,33 +6,31 @@ import { Button } from "./ui/button";
 
 export default function LoginForm() {
   return (
-    <>
+    <div className="px-3">
       <div
-        className="flex flex-col items-center justify-center gap-5"
+        className="flex flex-col items-center justify-center gap-5 text-center"
         style={{
-          width: "600px",
-          height: "400px",
+          padding: "50px 60px",
           borderRadius: "10px",
           background: "#FFF",
           boxShadow: "0px 0px 20px 5px rgba(20, 51, 114, 0.25)",
         }}
       >
         <Image src="/img/logo.png" alt="" width={175} height={200} />
-        <h1
+        <h2
           style={{
             color: "#38434A",
             fontFamily: "Montserrat",
-            fontSize: "24px",
             fontStyle: "normal",
             fontWeight: "700",
             textTransform: "uppercase",
           }}
         >
-          TSL - Shoter Link for better life
-        </h1>
+          THLS - Shoter Link for better life
+        </h2>
         <LoginButton />
       </div>
-    </>
+    </div>
   );
 }
 

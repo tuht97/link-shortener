@@ -6,7 +6,7 @@ async function Page() {
 }
 export const HomePage = () => {
   return (
-    <div className="w-screen h-screen bg-white flex flex-col justify-between py-[100px] items-center gap-4">
+    <div className="w-screen h-screen bg-white flex flex-col justify-between py-[100px] items-center gap-4 px-5">
       <div className="flex flex-col items-center gap-10">
         <Image src="/img/logo.png" alt="" width={175} height={200} />{" "}
         <h1
@@ -19,12 +19,12 @@ export const HomePage = () => {
             textTransform: "uppercase",
           }}
         >
-          TSL - Short Links But more power
+          THLS - Short Links But more power
         </h1>
       </div>
 
       <PrimaryButton href={"/login"}>Start for Free</PrimaryButton>
-      <div className="flex flex-row w-3/4">
+      <div className="flex flex-col md:flex-row w-full md:w-3/4">
         <MediaCard
           src={"/img/link.png"}
           title={"personal, branded links"}
