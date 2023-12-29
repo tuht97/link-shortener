@@ -22,7 +22,7 @@ interface UpdateLinkDTO{
 export const link = {
     create: async (input: CreateLinkDTO) => {
         const { url, slug, password } = input;
-        const myURL = require('node:url').parse(url);
+        // const myURL = require('node:url').parse(url);
         
         const existed_link_with_slug = await prisma.link.findUnique({
             where: {
@@ -40,8 +40,8 @@ export const link = {
                
         let data = {
             ...input,
-            domain: myURL.host,
-            key: myURL.pathname,
+            domain: " ",
+            key: " ",
         };
 
         const link = await prisma.link.create({data});
@@ -123,7 +123,7 @@ export const link = {
 
     update: async (linkId:string, input: UpdateLinkDTO) => {        
         const { url , password} = input;
-        const myURL = require('node:url').parse(url);
+        // const myURL = require('node:url').parse(url);
         
         let link = await prisma.link.findUnique({
             where: {
@@ -146,8 +146,8 @@ export const link = {
             },
             data: {
                 ...input,
-                domain: myURL.host,
-                key: myURL.pathname,
+                domain: " ",
+                key: " ",
             },
         });
 
