@@ -67,6 +67,8 @@ model Link {
     expiresAt DateTime?
     password  String? // password to access the link
     slug    String
+    androidTargeting  String?
+    iOSTargeting  String?
 
     title       String? // OG title for the link (e.g. ABC Title)
     description String? @db.VarChar(280) // OG description for the link (e.g. An open-source link management tool for modern marketing teams to create, share, and track short links.)

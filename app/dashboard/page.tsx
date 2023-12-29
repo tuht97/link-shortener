@@ -11,7 +11,7 @@ async function DashboardPage() {
     userId:"clqq3zd1k0000hzd9o4z99i37",
     search:"youtube"
   }))
-  redirect('/login');
+  // redirect('https://blog.logrocket.com/build-rest-api-elixir-phoenix/');
   return <div>DashboardPage</div>;
 }
 

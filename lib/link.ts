@@ -1,10 +1,27 @@
 import prisma from "@/lib/prisma";
 
 import moment from 'moment';
+import { hashPassword } from "./password";
+
+interface CreateLinkDTO{
+    userId: string;
+    url: string;
+    slug: string; 
+    androidTargeting?: string; 
+    iOSTargeting?: string;
+    password?: string
+}
+
+interface UpdateLinkDTO{
+    url: string;
+    androidTargeting?: string | null; 
+    iOSTargeting?: string | null;
+    password?: string | null;
+}
 
 export const link = {
-    create: async ({ userId , url, slug }: {userId:string, url:string, slug:string}) => {
-        
+    create: async (input: CreateLinkDTO) => {
+        const { url, slug, password } = input;
         const myURL = require('node:url').parse(url);
         
         const existed_link_with_slug = await prisma.link.findUnique({
@@ -16,13 +33,15 @@ export const link = {
         if (existed_link_with_slug) {
             return {error: true, message:"invalid slug", data:null};
         }
+
+        if (password){
+            input["password"] = hashPassword(password)
+        }
                
         let data = {
+            ...input,
             domain: myURL.host,
             key: myURL.pathname,
-            url,
-            slug,
-            userId
         };
 
         const link = await prisma.link.create({data});
@@ -55,6 +74,10 @@ export const link = {
             },
         });
 
+        if (!link){
+            return {error: true, message: "not found", data: null};
+        }
+
         if (!link.lastClicked || moment(link.lastClicked).add(5,"minutes").isSameOrBefore(moment()) ){
             link = await prisma.link.update({
                 where: {
@@ -62,7 +85,7 @@ export const link = {
                 },
                 data: {
                     clicks: {increment: 1},
-                    lastClicked: moment()  
+                    lastClicked: moment().toString()  
                 },
             });
         }
@@ -82,5 +105,52 @@ export const link = {
         }
 
         return {error: false, message:"success", data: link};
+    },
+
+    getBySlug: async ({ slug }: {slug: string}) => {        
+        const link = await prisma.link.findUnique({
+            where: {
+                slug: slug,
+            },
+        });
+
+        if (!link){  
+            return {error: true, message:"not found", data: null};
+        }
+
+        return {error: false, message:"success", data: link};
+    },
+
+    update: async (linkId:string, input: UpdateLinkDTO) => {        
+        const { url , password} = input;
+        const myURL = require('node:url').parse(url);
+        
+        let link = await prisma.link.findUnique({
+            where: {
+                id: linkId,
+            },
+        });
+
+        if (!link){
+            return {error: true, message: "not found", data: null};
+        }
+
+        if (password){
+            input["password"] = hashPassword(password)
+        }
+               
+
+        link = await prisma.link.update({
+            where: {
+                id: linkId,
+            },
+            data: {
+                ...input,
+                domain: myURL.host,
+                key: myURL.pathname,
+            },
+        });
+
+        return {error: false, message:"success", data:link};
     },
 };
