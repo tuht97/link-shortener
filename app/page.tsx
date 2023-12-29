@@ -1,7 +1,11 @@
-import { redirect } from "next/navigation";
+import Link from "next/link";
 
 async function Page() {
-  redirect("/dashboard");
+  return (
+    <Link href={"/login"}>
+      <p className="font-semibold text-xl">Login</p>
+    </Link>
+  );
 }
 
 export default Page;
