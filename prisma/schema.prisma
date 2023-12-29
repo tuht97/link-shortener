@@ -60,12 +60,13 @@ model VerificationToken {
 }
 
 model Link {
-    id        String    @id @default(cuid())
+    id        String    @id @default(cuid()) 
     domain    String // domain of the link (e.g. abc.com) 
     key       String // key of the link (e.g. /github)
     url       String    @db.LongText // target url (e.g. https://github.com/abc/xyz) 
     expiresAt DateTime?
     password  String? // password to access the link
+    slug    String
 
     title       String? // OG title for the link (e.g. ABC Title)
     description String? @db.VarChar(280) // OG description for the link (e.g. An open-source link management tool for modern marketing teams to create, share, and track short links.)
@@ -81,12 +82,13 @@ model Link {
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 
-    @@unique([domain, key])
+    @@unique([slug])
     @@index(domain)
     @@index(password)
     @@index(createdAt(sort: Desc))
     @@index(clicks(sort: Desc))
     @@index(lastClicked)
     @@index(userId)
+    @@fulltext([url])
     @@fulltext([key, url])
 }
