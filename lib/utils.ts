@@ -1,6 +1,357 @@
-import { type ClassValue, clsx } from "clsx"
-import { twMerge } from "tailwind-merge"
+import { type ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
+  return twMerge(clsx(inputs));
 }
+
+export const isValidUrl = (url: string) => {
+  try {
+    new URL(url);
+    return true;
+  } catch (e) {
+    return false;
+  }
+};
+
+export const truncate = (str: string | null, length: number) => {
+  if (!str || str.length <= length) return str;
+  return `${str.slice(0, length - 3)}...`;
+};
+
+export const GOOGLE_FAVICON_URL =
+  "https://www.google.com/s2/favicons?sz=64&domain_url=";
+
+export const SECOND_LEVEL_DOMAINS = new Set([
+  "com",
+  "co",
+  "net",
+  "org",
+  "edu",
+  "gov",
+  "in",
+]);
+
+export const SPECIAL_APEX_DOMAINS = new Set([
+  "my.id",
+  "github.io",
+  "vercel.app",
+  "now.sh",
+  "pages.dev",
+  "webflow.io",
+  "netlify.app",
+  "fly.dev",
+  "web.app",
+]);
+const ccTLDs = new Set([
+  "af",
+  "ax",
+  "al",
+  "dz",
+  "as",
+  "ad",
+  "ao",
+  "ai",
+  "aq",
+  "ag",
+  "ar",
+  "am",
+  "aw",
+  "ac",
+  "au",
+  "at",
+  "az",
+  "bs",
+  "bh",
+  "bd",
+  "bb",
+  "eus",
+  "by",
+  "be",
+  "bz",
+  "bj",
+  "bm",
+  "bt",
+  "bo",
+  "bq",
+  "an",
+  "nl",
+  "ba",
+  "bw",
+  "bv",
+  "br",
+  "io",
+  "vg",
+  "bn",
+  "bg",
+  "bf",
+  "mm",
+  "bi",
+  "kh",
+  "cm",
+  "ca",
+  "cv",
+  "cat",
+  "ky",
+  "cf",
+  "td",
+  "cl",
+  "cn",
+  "cx",
+  "cc",
+  "co",
+  "km",
+  "cd",
+  "cg",
+  "ck",
+  "cr",
+  "ci",
+  "hr",
+  "cu",
+  "cw",
+  "cy",
+  "cz",
+  "dk",
+  "dj",
+  "dm",
+  "do",
+  "tl",
+  "tp",
+  "ec",
+  "eg",
+  "sv",
+  "gq",
+  "er",
+  "ee",
+  "et",
+  "eu",
+  "fk",
+  "fo",
+  "fm",
+  "fj",
+  "fi",
+  "fr",
+  "gf",
+  "pf",
+  "tf",
+  "ga",
+  "gal",
+  "gm",
+  "ps",
+  "ge",
+  "de",
+  "gh",
+  "gi",
+  "gr",
+  "gl",
+  "gd",
+  "gp",
+  "gu",
+  "gt",
+  "gg",
+  "gn",
+  "gw",
+  "gy",
+  "ht",
+  "hm",
+  "hn",
+  "hk",
+  "hu",
+  "is",
+  "in",
+  "id",
+  "ir",
+  "iq",
+  "ie",
+  "im",
+  "il",
+  "it",
+  "jm",
+  "jp",
+  "je",
+  "jo",
+  "kz",
+  "ke",
+  "ki",
+  "kw",
+  "kg",
+  "la",
+  "lv",
+  "lb",
+  "ls",
+  "lr",
+  "ly",
+  "li",
+  "lt",
+  "lu",
+  "mo",
+  "mk",
+  "mg",
+  "mw",
+  "my",
+  "mv",
+  "ml",
+  "mt",
+  "mh",
+  "mq",
+  "mr",
+  "mu",
+  "yt",
+  "mx",
+  "md",
+  "mc",
+  "mn",
+  "me",
+  "ms",
+  "ma",
+  "mz",
+  "mm",
+  "na",
+  "nr",
+  "np",
+  "nl",
+  "nc",
+  "nz",
+  "ni",
+  "ne",
+  "ng",
+  "nu",
+  "nf",
+  "nc",
+  "tr",
+  "kp",
+  "mp",
+  "no",
+  "om",
+  "pk",
+  "pw",
+  "ps",
+  "pa",
+  "pg",
+  "py",
+  "pe",
+  "ph",
+  "pn",
+  "pl",
+  "pt",
+  "pr",
+  "qa",
+  "ro",
+  "ru",
+  "rw",
+  "re",
+  "bq",
+  "an",
+  "bl",
+  "gp",
+  "fr",
+  "sh",
+  "kn",
+  "lc",
+  "mf",
+  "gp",
+  "fr",
+  "pm",
+  "vc",
+  "ws",
+  "sm",
+  "st",
+  "sa",
+  "sn",
+  "rs",
+  "sc",
+  "sl",
+  "sg",
+  "bq",
+  "an",
+  "nl",
+  "sx",
+  "an",
+  "sk",
+  "si",
+  "sb",
+  "so",
+  "so",
+  "za",
+  "gs",
+  "kr",
+  "ss",
+  "es",
+  "lk",
+  "sd",
+  "sr",
+  "sj",
+  "sz",
+  "se",
+  "ch",
+  "sy",
+  "tw",
+  "tj",
+  "tz",
+  "th",
+  "tg",
+  "tk",
+  "to",
+  "tt",
+  "tn",
+  "tr",
+  "tm",
+  "tc",
+  "tv",
+  "ug",
+  "ua",
+  "ae",
+  "uk",
+  "us",
+  "vi",
+  "uy",
+  "uz",
+  "vu",
+  "va",
+  "ve",
+  "vn",
+  "wf",
+  "eh",
+  "ma",
+  "ye",
+  "zm",
+  "zw",
+]);
+
+export const getApexDomain = (url: string) => {
+  let domain;
+  try {
+    domain = new URL(url.replace(/^[a-zA-Z]+:\/\//, "https://")).hostname;
+  } catch (e) {
+    return "";
+  }
+  if (domain === "youtu.be") return "youtube.com";
+  if (domain === "raw.githubusercontent.com") return "github.com";
+  if (domain.endsWith(".vercel.app")) return "vercel.app";
+
+  const parts = domain.split(".");
+  if (parts.length > 2) {
+    if (
+      (SECOND_LEVEL_DOMAINS.has(parts[parts.length - 2]) &&
+        ccTLDs.has(parts[parts.length - 1])) ||
+      SPECIAL_APEX_DOMAINS.has(parts.slice(-2).join("."))
+    ) {
+      return parts.slice(-3).join(".");
+    }
+    return parts.slice(-2).join(".");
+  }
+  return domain;
+};
+
+export const getDomainWithoutWWW = (url: string) => {
+  if (isValidUrl(url)) {
+    return new URL(url).hostname.replace(/^www\./, "");
+  }
+  try {
+    if (url.includes(".") && !url.includes(" ")) {
+      return new URL(`https://${url}`).hostname.replace(/^www\./, "");
+    }
+  } catch (e) {
+    return null;
+  }
+};

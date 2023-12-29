@@ -8,7 +8,7 @@ export default async function DashboardHeader() {
   const user = session?.user;
 
   return (
-    <div className="flex justify-between">
+    <div className="flex justify-between p-6 border-b border-gray-200">
       <Logo />
       {user && <UserAvatar user={user} />}
     </div>

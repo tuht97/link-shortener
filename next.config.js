@@ -10,6 +10,10 @@ const nextConfig = {
         hostname: "placekitten.com",
         protocol: "http",
       },
+      {
+        hostname: "ui.shadcn.com",
+        protocol: "https",
+      },
     ],
   },
 };
